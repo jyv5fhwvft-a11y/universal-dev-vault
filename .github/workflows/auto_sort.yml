@@ -1,0 +1,45 @@
+name: Universal Vault Auto-Sorter
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sort_assets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Auto-Organize Vault Files
+        run: |
+          mkdir -p documentation network_apps web_interfaces
+          
+          # Scan root directory for incoming raw asset extensions
+          for file in *.md; do
+            if [ -f "$file" ] && [ "$file" != "README.md" ]; then
+              mv "$file" documentation/
+            fi
+          done
+          
+          for file in *.py *.c *.cpp; do
+            if [ -f "$file" ]; then
+              mv "$file" network_apps/
+            fi
+          done
+          
+          for file in *.html *.css; do
+            if [ -f "$file" ] && [ "$file" != "index.html" ]; then
+              mv "$file" web_interfaces/
+            fi
+          done
+
+      - name: Commit and Push Sorted Vault
+        run: |
+          git config --global user.name "Vault-Automation-Bot"
+          git config --global user.email "vault-bot@github.com"
+          git add -A
+          if ! git diff-index --quiet HEAD; then
+            git commit -m "🤖 Auto-sorted workspace directories [Automation Engine]"
+            git push
+          fi
