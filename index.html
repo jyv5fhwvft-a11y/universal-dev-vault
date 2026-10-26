@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎛️ UNIVERSAL DEVELOPMENT VAULT // MAIN PORTAL</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: #06090f; color: #eaf0fc; font-family: 'Courier New', Courier, monospace; display: flex; height: 100vh; overflow: hidden; }
+        
+        /* Left Navigation Catalog Sidebar */
+        aside { width: 320px; background: #0c1017; border-right: 1px solid rgba(255, 255, 255, 0.1); padding: 25px; display: flex; flex-direction: column; gap: 25px; z-index: 10; }
+        .branding h1 { color: #00ffcc; font-size: 1.1rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px; }
+        .status-badge { font-size: 0.75rem; color: #2ee6a8; display: flex; align-items: center; gap: 6px; }
+        
+        .menu-section h2 { color: #8494b4; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; font-weight: 600; }
+        .menu-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        
+        /* Clean Navigation Anchor Items */
+        .menu-link { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 4px; color: #c4cfe6; text-decoration: none; font-size: 0.8rem; cursor: pointer; transition: all 0.2s ease; }
+        .menu-link:hover { border-color: #00ffcc; color: #00ffcc; background: rgba(0, 255, 204, 0.03); padding-left: 16px; }
+        .menu-link.active { border-color: #5b8dff; color: #5b8dff; background: rgba(91, 141, 255, 0.05); font-weight: bold; }
+        .tag-badge { font-size: 0.65rem; background: #1f2937; padding: 2px 6px; border-radius: 3px; color: #8494b4; }
+        
+        /* Right Column: Live Iframe Sandbox Viewport */
+        main { flex: 1; background: #020408; display: flex; flex-direction: column; position: relative; }
+        .viewport-header { background: #0c1017; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding: 12px 20px; font-size: 0.8rem; color: #8494b4; display: flex; justify-content: space-between; }
+        iframe { width: 100%; height: 100%; border: none; background: #020408; }
+        
+        .welcome-screen { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #06090f; text-align: center; padding: 40px; z-index: 5; }
+        .welcome-screen h3 { font-size: 1.5rem; margin-bottom: 10px; color: #00ffcc; }
+        .welcome-screen p { font-size: 0.85rem; color: #8494b4; max-width: 480px; line-height: 1.5; }
+    </style>
+</head>
+<body>
+
+    <!-- Master Menu Sidebar Links -->
+    <aside>
+        <div class="branding">
+            <h1>Dev-Vault Hub</h1>
+            <div class="status-badge">🟢 CONTAINER NODE: ACTIVE</div>
+        </div>
+
+        <!-- Section A: Course Content Wikis -->
+        <div class="menu-section">
+            <h2>📚 Course Lectures & Wikis</h2>
+            <ul class="menu-list">
+                <li>
+                    <a class="menu-link" onclick="loadFrame('documentation/port_scanner_wiki.md', 'Port Scanner Lab Guide')">
+                        <span>📟 Port Scanner Wiki</span>
+                        <span class="tag-badge">MD</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="menu-link" onclick="loadFrame('documentation/socket_analyzer_wiki.md', 'Socket Overheads Wiki')">
+                        <span>📊 Socket Analyzer Wiki</span>
+                        <span class="tag-badge">MD</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Section B: Executable Core Programs -->
+        <div class="menu-section">
+            <h2>⚙️ Network Applications</h2>
+            <ul class="menu-list">
+                <li>
+                    <a class="menu-link" onclick="loadFrame('network_apps/scanner.py', 'Port Scanner Engine Source')">
+                        <span>🐍 Threaded Scanner</span>
+                        <span class="tag-badge">PY</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="menu-link" onclick="loadFrame('network_apps/socket_bench.py', 'Telemetry Daemon Engine')">
+                        <span>🐍 Telemetry Daemon</span>
+                        <span class="tag-badge">PY</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Section C: Production Visual Interfaces -->
+        <div class="menu-section">
+            <h2>📺 Live User Interfaces</h2>
+            <ul class="menu-list">
+                <li>
+                    <a class="menu-link" onclick="loadFrame('web_interfaces/dashboard.html', 'CYBER_NET Live Telemetry Board')">
+                        <span>📊 Performance Monitor</span>
+                        <span class="tag-badge">HTML</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- Main Viewport Arena -->
+    <main>
+        <div class="viewport-header">
+            <span id="view-title">SYSTEM ROOT VIEWPORT</span>
+            <span id="view-path">vault://home</span>
+        </div>
+        
+        <!-- Frame Sandbox Container -->
+        <iframe id="display-engine" src="about:blank"></iframe>
+        
+        <!-- Welcome Screen Buffer Overlay -->
+        <div class="welcome-screen" id="welcome">
+            <h3>📟 Welcome, Master Creator</h3>
+            <p>Select any code application script, lab wiki manual, or terminal user interface from the catalog menu layer to boot execution inside this live web viewport container.</p>
+        </div>
+    </main>
+
+    <!-- Navigation Event Orchestration Script -->
+    <script>
+        function loadFrame(url, title) {
+            // Hide welcome panel overlay screen context
+            document.getElementById('welcome').style.display = 'none';
+            
+            // Adjust header path string trackers dynamically
+            document.getElementById('view-title').innerText = title.toUpperCase();
+            document.getElementById('view-path').innerText = 'vault://' + url;
+            
+            // Route target file asset directly into the frame box viewport canvas
+            document.getElementById('display-engine').src = url;
+            
+            // Toggle highlight marker focus across menu options
+            const links = document.querySelectorAll('.menu-link');
+            links.forEach(link => link.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
