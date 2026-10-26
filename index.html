@@ -3,309 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DEV-VAULT HUB // PREMIUM STUDIO CENTRAL</title>
+    <title>DEV-VAULT HUB</title>
     <style>
-        /* Modern High-Contrast Dynamic Color Reset */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        :root {
-            --bg-base: #0b0f19;
-            --bg-viewport: #05070c;
-            --panel-glass: #0e1320;
-            --stroke-glass: rgba(255, 255, 255, 0.08);
-            --stroke-neon: rgba(0, 245, 212, 0.25);
-            --ink-bright: #ffffff;
-            --ink-secondary: #e2e8f0;
-            --ink-muted: #94a3b8;
-            --neon-cyan: #00f5d4;
-            --neon-blue: #3b82f6;
-            --font-stack: 'Inter', system-ui, -apple-system, sans-serif;
-            --font-mono: 'JetBrains Mono', 'Courier New', monospace;
-        }
-
-        body {
-            background-color: var(--bg-base);
-            color: var(--ink-secondary);
-            font-family: var(--font-stack);
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* Subtle Background Ambient Illumination */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(800px 500px at 15% -10%, rgba(0, 245, 212, 0.04), transparent 70%);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* Premium Midnight-Glass Sidebar Navigation */
-        aside {
-            width: 320px;
-            background: var(--panel-glass);
-            border-right: 1px solid var(--stroke-glass);
-            padding: 30px 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 28px;
-            z-index: 10;
-            box-shadow: 10px 0 40px rgba(0,0,0,0.3);
-        }
-
-        .branding h1 {
-            color: var(--ink-bright);
-            font-size: 1.2rem;
-            font-weight: 800;
-            letter-spacing: -0.01em;
-            text-transform: uppercase;
-        }
-        
-        .status-badge {
-            font-size: 0.72rem;
-            color: var(--neon-cyan);
-            font-family: var(--font-mono);
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 6px;
-            letter-spacing: 0.02em;
-        }
-        
-        .pulse-dot {
-            width: 6px;
-            height: 6px;
-            background: var(--neon-cyan);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--neon-cyan);
-            animation: pulse 2s infinite;
-        }
-
-        .menu-section {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        .menu-section h2 {
-            color: var(--ink-muted);
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            font-weight: 700;
-        }
-        
-        .menu-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        /* Responsive Cyber Link Options */
-        .menu-link {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 14px;
-            background: rgba(255, 255, 255, 0.01);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-radius: 6px;
-            color: var(--ink-secondary);
-            text-decoration: none;
-            font-size: 0.82rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .menu-link:hover {
-            border-color: rgba(0, 245, 212, 0.4);
-            color: var(--neon-cyan);
-            background: rgba(0, 245, 212, 0.02);
-        }
-        
-        .menu-link.active {
-            border-color: var(--neon-blue);
-            color: #fff;
-            background: rgba(59, 130, 246, 0.1);
-            font-weight: 600;
-        }
-        
-        .tag-badge {
-            font-size: 0.62rem;
-            font-family: var(--font-mono);
-            font-weight: 700;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 2px 6px;
-            border-radius: 4px;
-            color: var(--ink-muted);
-        }
-
-        /* Right Column: Clean High-Contrast Presentation Stage */
-        main {
-            flex: 1;
-            background: var(--bg-viewport);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            height: 100vh;
-            overflow: hidden;
-            z-index: 1;
-        }
-        
-        .viewport-header {
-            background: var(--panel-glass);
-            border-bottom: 1px solid var(--stroke-glass);
-            padding: 16px 32px;
-            font-size: 0.78rem;
-            font-weight: 600;
-            color: var(--ink-muted);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        #view-title {
-            color: #fff;
-            font-weight: 700;
-            letter-spacing: 0.01em;
-        }
-        
-        #view-path {
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            background: rgba(0,0,0,0.2);
-            padding: 4px 10px;
-            border-radius: 6px;
-            border: 1px solid var(--stroke-glass);
-        }
-
-        /* RE-DESIGNED CODE VIEWER: Bright High-Contrast White Text + Emerald Accents */
-        .content-viewer {
-            width: 100%;
-            height: calc(100vh - 53px);
-            padding: 40px;
-            background: var(--bg-viewport);
-            color: var(--ink-bright);
-            line-height: 1.7;
-            font-family: var(--font-mono);
-            font-size: 0.92rem;
-            border: none;
-            border-top: 1px solid var(--stroke-neon);
-            outline: none;
-            resize: none;
-            display: none;
-            box-sizing: border-box;
-            overflow-y: scroll !important;
-            overflow-x: hidden !important;
-            white-space: pre-wrap !important;
-            word-break: break-all !important;
-            -webkit-overflow-scrolling: touch !important;
-            letter-spacing: 0.01em;
-        }
-        
-        iframe {
-            width: 100%;
-            height: calc(100vh - 53px);
-            border: none;
-            background: var(--bg-viewport);
-            display: none;
-        }
-        
-        .welcome-screen {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: var(--bg-viewport);
-            text-align: center;
-            padding: 40px;
-            z-index: 5;
-            gap: 12px;
-        }
-        
-        .welcome-screen h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #fff;
-        }
-        
-        .welcome-screen p {
-            font-size: 0.85rem;
-            color: var(--ink-muted);
-            max-width: 400px;
-            line-height: 1.5;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 245, 212, 0.5); }
-            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(0, 245, 212, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 245, 212, 0); }
-        }
+        body { background-color: #0b0f19; color: #e2e8f0; font-family: system-ui, -apple-system, sans-serif; display: flex; height: 100vh; overflow: hidden; position: relative; }
+        body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(800px 500px at 15% -10%, rgba(0, 245, 212, 0.04), transparent 70%); pointer-events: none; z-index: 0; }
+        aside { width: 320px; background: #0e1320; border-right: 1px solid rgba(255, 255, 255, 0.08); padding: 30px 24px; display: flex; flex-direction: column; gap: 28px; z-index: 10; box-shadow: 10px 0 40px rgba(0,0,0,0.3); }
+        .branding h1 { color: #ffffff; font-size: 1.2rem; font-weight: 800; text-transform: uppercase; }
+        .status-badge { font-size: 0.72rem; color: #00f5d4; font-family: monospace; font-weight: 700; display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+        .pulse-dot { width: 6px; height: 6px; background: #00f5d4; border-radius: 50%; box-shadow: 0 0 10px #00f5d4; animation: pulse 2s infinite; }
+        .menu-section { display: flex; flex-direction: column; gap: 10px; }
+        .menu-section h2 { color: #94a3b8; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; }
+        .menu-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+        .menu-link { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; background: rgba(255, 255, 255, 0.01); border: 1px solid rgba(255, 255, 255, 0.03); border-radius: 6px; color: #e2e8f0; text-decoration: none; font-size: 0.82rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease; }
+        .menu-link:hover { border-color: rgba(0, 245, 212, 0.4); color: #00f5d4; background: rgba(0, 245, 212, 0.02); }
+        .menu-link.active { border-color: #3b82f6; color: #ffffff; background: rgba(59, 130, 246, 0.1); font-weight: 600; }
+        .tag-badge { font-size: 0.62rem; font-family: monospace; font-weight: 700; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.05); padding: 2px 6px; border-radius: 4px; color: #94a3b8; }
+        main { flex: 1; background: #05070c; display: flex; flex-direction: column; position: relative; height: 100vh; overflow: hidden; z-index: 1; }
+        .viewport-header { background: #0e1320; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding: 16px 32px; font-size: 0.78rem; font-weight: 600; color: #94a3b8; display: flex; justify-content: space-between; align-items: center; }
+        #view-title { color: #ffffff; font-weight: 700; }
+        #view-path { font-family: monospace; font-size: 0.72rem; background: rgba(0,0,0,0.3); padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.08); }
+        .code-viewport-container { flex: 1; width: 100%; height: calc(100vh - 53px); padding: 40px; background: #05070c; overflow-y: auto !important; overflow-x: hidden !important; display: none; box-sizing: border-box; -webkit-overflow-scrolling: touch !important; }
+        .code-text-display { color: #ffffff !important; font-family: monospace !important; font-size: 0.94rem !important; line-height: 1.75 !important; white-space: pre-wrap !important; word-break: break-all !important; display: block !important; visibility: visible !important; opacity: 1 !important; }
+        iframe { width: 100%; height: calc(100vh - 53px); border: none; background: #05070c; display: none; }
+        .welcome-screen { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #05070c; text-align: center; padding: 40px; z-index: 5; gap: 12px; }
+        .welcome-screen h3 { font-size: 1.3rem; font-weight: 700; color: #ffffff; }
+        .welcome-screen p { font-size: 0.85rem; color: #94a3b8; max-width: 400px; line-height: 1.5; }
+        @keyframes pulse { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 245, 212, 0.5); } 70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(0, 245, 212, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 245, 212, 0); } }
     </style>
 </head>
 <body>
-
     <aside>
         <div class="branding">
             <h1>Studio Engine</h1>
             <div class="status-badge"><span class="pulse-dot"></span>VAULT NODE // ONLINE</div>
         </div>
-
         <div class="menu-section">
             <h2>📚 Course Lectures & Wikis</h2>
             <ul class="menu-list">
-                <li>
-                    <a class="menu-link" onclick="loadContent('documentation/port_scanner_wiki.md', 'Port Scanner Lab Guide', true)">
-                        <span>📟 Port Scanner Wiki</span>
-                        <span class="tag-badge">MD</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="menu-link" onclick="loadContent('documentation/socket_analyzer_wiki.md', 'Socket Overheads Wiki', true)">
-                        <span>📊 Socket Analyzer Wiki</span>
-                        <span class="tag-badge">MD</span>
-                    </a>
-                </li>
+                <li><a class="menu-link" onclick="loadContent('documentation/port_scanner_wiki.md', 'Port Scanner Lab Guide', true)"><span>📟 Port Scanner Wiki</span><span class="tag-badge">MD</span></a></li>
+                <li><a class="menu-link" onclick="loadContent('documentation/socket_analyzer_wiki.md', 'Socket Overheads Wiki', true)"><span>📊 Socket Analyzer Wiki</span><span class="tag-badge">MD</span></a></li>
             </ul>
         </div>
-
         <div class="menu-section">
             <h2>⚙️ Network Applications</h2>
             <ul class="menu-list">
-                <li>
-                    <a class="menu-link" onclick="loadContent('network_apps/scanner.py', 'Port Scanner Engine Source', true)">
-                        <span>🐍 Threaded Scanner</span>
-                        <span class="tag-badge">PY</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="menu-link" onclick="loadContent('network_apps/socket_bench.py', 'Telemetry Daemon Engine', true)">
-                        <span>🐍 Telemetry Daemon</span>
-                        <span class="tag-badge">PY</span>
-                    </a>
-                </li>
+                <li><a class="menu-link" onclick="loadContent('network_apps/scanner.py', 'Port Scanner Engine Source', true)"><span>🐍 Threaded Scanner</span><span class="tag-badge">PY</span></a></li>
+                <li><a class="menu-link" onclick="loadContent('network_apps/socket_bench.py', 'Telemetry Daemon Engine', true)"><span>🐍 Telemetry Daemon</span><span class="tag-badge">PY</span></a></li>
             </ul>
         </div>
-
         <div class="menu-section">
             <h2>📺 Live User Interfaces</h2>
             <ul class="menu-list">
-                <li>
-                    <a class="menu-link" onclick="loadContent('web_interfaces/dashboard.html', 'CYBER_NET Live Telemetry Board', false)">
-                        <span>📊 Performance Monitor</span>
-                        <span class="tag-badge">HTML</span>
-                    </a>
-                </li>
+                <li><a class="menu-link" onclick="loadContent('web_interfaces/dashboard.html', 'CYBER_NET Live Telemetry Board', false)"><span>📊 Performance Monitor</span><span class="tag-badge">HTML</span></a></li>
             </ul>
         </div>
     </aside>
-
     <main>
+        <div class="viewport-header"><span id="view-title">WORKSPACE INITIALIZED</span><span id="view-path">studio://root</span></div>
+        <div class="code-viewport-container" id="text-container-block"><pre class="code-text-display" id="code-content-target"></pre></div>
+        <iframe id="iframe-display-engine" src="about:blank"></iframe>
+        <div class="welcome-screen" id="welcome"><h3>System Console Active</h3><p>Select any code application script or lab wiki manual from the studio directory panel to boot live execution views.</p></div>
+    </main>
+    <script>
+        async function loadContent(url, title, isRawText) {
+            document.getElementById('welcome').style.display = 'none';
+            document.getElementById('view-title').innerText = title.toUpperCase();
+            document.getElementById('view-path').innerText = 'studio://' + url;
+            const iframe = document.getElementById('iframe-display-engine');
+            const textContainer = document.getElementById('text-container-block');
+            const textDisplay = document.getElementById('code-content-target');
+            const links = document.querySelectorAll('.menu-link');
+            links.forEach(link => link.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            if (isRawText) {
+                iframe.style.display = 'none';
+                textContainer.style.display = 'block';
+                textDisplay.innerText = "⏳ Requesting data packet stream from core repository...";
+                try {
+                    const response = await fetch(url);
+                    if (response.ok) {
+                        textDisplay.innerText = await response.text();
+                        textContainer.scrollTop = 0;
+                    } else { textDisplay.innerText = `🚨 Vault Error: Failed to resolve file stream buffer channels [HTTP ${response.status}]`; }
+                } catch (err) { textDisplay.innerText = "🚨 Critical Exception: Data interface connection link failure."; }
+            } else { textContainer.style.display = 'none'; iframe.style.display = 'block'; iframe.src = url; }
+        }
+    </script>
+</body>
+</html>
