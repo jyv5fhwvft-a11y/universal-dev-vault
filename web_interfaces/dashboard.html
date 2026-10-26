@@ -759,6 +759,29 @@
       }
     }, 3000);
   </script>
+  
 </body>
+
+  <script>
+    async function fetchLiveTelemetry() {
+        try {
+            const response = await fetch('../telemetry.json');
+            if (!response.ok) return;
+            const data = await response.json();
+            if (data.throughput_mbs) {
+                document.body.innerHTML = document.body.innerHTML
+                    .replace(/837\.17/g, data.throughput_mbs)
+                    .replace(/0\.049/g, data.packet_loss_pct)
+                    .replace(/1\.28/g, data.active_latency_ms)
+                    .replace(/14\.88/g, data.total_transferred_gb);
+            }
+        } catch (error) {
+            console.log("Telemetry channel idle:", error);
+        }
+    }
+    setInterval(fetchLiveTelemetry, 3000);
+    window.onload = fetchLiveTelemetry;
+</script>
+
 </html>
 </UserInterface>
