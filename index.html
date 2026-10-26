@@ -26,8 +26,8 @@
         main { flex: 1; background: #020408; display: flex; flex-direction: column; position: relative; height: 100vh; overflow: hidden; }
         .viewport-header { background: #0c1017; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding: 12px 20px; font-size: 0.8rem; color: #8494b4; display: flex; justify-content: space-between; }
         
-        /* FIXED SAFARI MOCK: Force clean boundaries, break long lines, and lock scrollable axis */
-        .content-viewer { flex: 1; display: none; width: 100%; height: calc(100vh - 45px); padding: 30px; background: #020408; color: #a5b4fc; line-height: 1.6; font-size: 0.9rem; margin: 0; box-sizing: border-box; overflow-y: scroll !important; overflow-x: hidden !important; white-space: pre-wrap !important; word-break: break-all !important; max-width: calc(100vw - 320px) !important; -webkit-overflow-scrolling: touch !important; }
+        /* THE ULTIMATE SAFARI ESCAPE: Native optimized system text area to force gesture parsing */
+        .content-viewer { flex: 1; width: 100%; height: calc(100vh - 45px); padding: 30px; background: #020408; color: #a5b4fc; line-height: 1.6; font-family: 'Courier New', Courier, monospace; font-size: 0.9rem; border: none; outline: none; resize: none; display: none; box-sizing: border-box; overflow-y: scroll !important; -webkit-overflow-scrolling: touch !important; }
         iframe { flex: 1; width: 100%; height: calc(100vh - 45px); border: none; background: #020408; display: none; }
         
         .welcome-screen { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #06090f; text-align: center; padding: 40px; z-index: 5; }
@@ -99,7 +99,7 @@
         </div>
         
         <!-- Viewer engines -->
-        <pre class="content-viewer" id="text-viewer-engine"></pre>
+        <textarea class="content-viewer" id="text-viewer-engine" readonly></textarea>
         <iframe id="iframe-display-engine" src="about:blank"></iframe>
         
         <div class="welcome-screen" id="welcome">
@@ -117,7 +117,6 @@
             const iframe = document.getElementById('iframe-display-engine');
             const textViewer = document.getElementById('text-viewer-engine');
             
-            // Manage focus classes across link elements
             const links = document.querySelectorAll('.menu-link');
             links.forEach(link => link.classList.remove('active'));
             event.currentTarget.classList.add('active');
@@ -125,18 +124,17 @@
             if (isRawText) {
                 iframe.style.display = 'none';
                 textViewer.style.display = 'block';
-                textViewer.innerText = "⏳ Requesting telemetry packet data from host vault...";
+                textViewer.value = "⏳ Requesting telemetry packet data from host vault...";
                 try {
                     const response = await fetch(url);
                     if (response.ok) {
-                        textViewer.innerText = await response.text();
-                        // Snap layout canvas back to the absolute top position upon load changes
+                        textViewer.value = await response.text();
                         textViewer.scrollTop = 0;
                     } else {
-                        textViewer.innerText = `🚨 System Error: Failed to load target path source [HTTP ${response.status}]`;
+                        textViewer.value = `🚨 System Error: Failed to load target path source [HTTP ${response.status}]`;
                     }
                 } catch (err) {
-                    textViewer.innerText = "🚨 Connection Fault: Unable to resolve file stream buffer channels.";
+                    textViewer.value = "🚨 Connection Fault: Unable to resolve file stream buffer channels.";
                 }
             } else {
                 textViewer.style.display = 'none';
