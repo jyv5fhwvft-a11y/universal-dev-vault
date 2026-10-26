@@ -3,44 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🎛️ UNIVERSAL DEVELOPMENT VAULT // MAIN PORTAL</title>
+    <title>DEV-VAULT HUB</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background-color: #06090f; color: #eaf0fc; font-family: 'Courier New', Courier, monospace; display: flex; height: 100vh; overflow: hidden; }
-        
-        /* Left Navigation Catalog Sidebar */
-        aside { width: 320px; background: #0c1017; border-right: 1px solid rgba(255, 255, 255, 0.1); padding: 25px; display: flex; flex-direction: column; gap: 25px; z-index: 10; }
-        .branding h1 { color: #00ffcc; font-size: 1.1rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px; }
-        .status-badge { font-size: 0.75rem; color: #2ee6a8; display: flex; align-items: center; gap: 6px; }
-        
-        .menu-section h2 { color: #8494b4; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; font-weight: 600; }
+        body { background-color: #06090f; color: #eaf0fc; font-family: system-ui, sans-serif; display: flex; height: 100vh; overflow: hidden; }
+        aside { width: 320px; background: #0c1017; border-right: 1px solid rgba(255,255,255,0.1); padding: 25px; display: flex; flex-direction: column; gap: 25px; }
+        .branding h1 { color: #00ffcc; font-size: 1.2rem; text-transform: uppercase; }
+        .menu-section h2 { color: #8494b4; font-size: 0.75rem; text-transform: uppercase; margin-bottom: 10px; }
         .menu-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-        
-        /* Navigation Links */
-        .menu-link { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 4px; color: #c4cfe6; text-decoration: none; font-size: 0.8rem; cursor: pointer; transition: all 0.2s ease; }
-        .menu-link:hover { border-color: #00ffcc; color: #00ffcc; background: rgba(0, 255, 204, 0.03); padding-left: 16px; }
-        .menu-link.active { border-color: #5b8dff; color: #5b8dff; background: rgba(91, 141, 255, 0.05); font-weight: bold; }
-        .tag-badge { font-size: 0.65rem; background: #1f2937; padding: 2px 6px; border-radius: 3px; color: #8494b4; }
-        
-        /* Right Column: Dynamic Viewport Wrapper */
-        main { flex: 1; background: #020408; display: flex; flex-direction: column; position: relative; height: 100vh; overflow: hidden; }
-        .viewport-header { background: #0c1017; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding: 12px 20px; font-size: 0.8rem; color: #8494b4; display: flex; justify-content: space-between; }
-        
-        /* THE ULTIMATE SAFARI ESCAPE: Native optimized system text area to force gesture parsing */
-        .content-viewer { flex: 1; width: 100%; height: calc(100vh - 45px); padding: 30px; background: #020408; color: #a5b4fc; line-height: 1.6; font-family: 'Courier New', Courier, monospace; font-size: 0.9rem; border: none; outline: none; resize: none; display: none; box-sizing: border-box; overflow-y: scroll !important; -webkit-overflow-scrolling: touch !important; }
-        iframe { flex: 1; width: 100%; height: calc(100vh - 45px); border: none; background: #020408; display: none; }
-        
-        .welcome-screen { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #06090f; text-align: center; padding: 40px; z-index: 5; }
-        .welcome-screen h3 { font-size: 1.5rem; margin-bottom: 10px; color: #00ffcc; }
-        .welcome-screen p { font-size: 0.85rem; color: #8494b4; max-width: 480px; line-height: 1.5; }
+        .menu-link { display: flex; align-items: center; justify-content: space-between; padding: 12px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 6px; color: #c4cfe6; text-decoration: none; font-size: 0.85rem; cursor: pointer; }
+        .menu-link:hover { border-color: #00ffcc; color: #00ffcc; }
+        .tag-badge { font-size: 0.65rem; background: #1f2937; padding: 2px 6px; border-radius: 4px; color: #8494b4; font-family: monospace; }
+        main { flex: 1; background: #020406; display: flex; flex-direction: column; position: relative; }
+        .viewport-header { background: #0c1017; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 15px 30px; font-size: 0.8rem; color: #8494b4; display: flex; justify-content: space-between; }
+        .content-viewer { flex: 1; width: 100%; height: calc(100vh - 50px); padding: 30px; background: #020406; color: #a5b4fc; font-family: monospace; font-size: 0.9rem; border: none; outline: none; resize: none; display: none; overflow-y: scroll !important; -webkit-overflow-scrolling: touch !important; white-space: pre-wrap; word-break: break-all; }
+        iframe { flex: 1; width: 100%; height: calc(100vh - 50px); border: none; background: #020406; display: none; }
+        .welcome-screen { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #06090f; padding: 40px; text-align: center; }
+        .welcome-screen h3 { color: #00ffcc; margin-bottom: 10px; font-size: 1.3rem; }
+        .welcome-screen p { color: #8494b4; font-size: 0.85rem; max-width: 400px; }
     </style>
 </head>
 <body>
 
     <aside>
         <div class="branding">
-            <h1>Dev-Vault Hub</h1>
-            <div class="status-badge">🟢 CONTAINER NODE: ACTIVE</div>
+            <h1>Studio Engine</h1>
+            <div style="font-size:0.7rem; color:#00ffcc; margin-top:5px;">🟢 NODE ACTIVE</div>
         </div>
 
         <div class="menu-section">
@@ -94,17 +82,16 @@
 
     <main>
         <div class="viewport-header">
-            <span id="view-title">SYSTEM ROOT VIEWPORT</span>
-            <span id="view-path">vault://home</span>
+            <span id="view-title">WORKSPACE INITIALIZED</span>
+            <span id="view-path">studio://root</span>
         </div>
         
-        <!-- Viewer engines -->
         <textarea class="content-viewer" id="text-viewer-engine" readonly></textarea>
         <iframe id="iframe-display-engine" src="about:blank"></iframe>
         
         <div class="welcome-screen" id="welcome">
-            <h3>📟 Welcome, Master Creator</h3>
-            <p>Select any code application script, lab wiki manual, or terminal user interface from the catalog menu layer to boot execution inside this live web viewport container.</p>
+            <h3>System Console Ready</h3>
+            <p>Select a module from the directory panel to trigger live execution layout views.</p>
         </div>
     </main>
 
@@ -112,29 +99,25 @@
         async function loadContent(url, title, isRawText) {
             document.getElementById('welcome').style.display = 'none';
             document.getElementById('view-title').innerText = title.toUpperCase();
-            document.getElementById('view-path').innerText = 'vault://' + url;
+            document.getElementById('view-path').innerText = 'studio://' + url;
             
             const iframe = document.getElementById('iframe-display-engine');
             const textViewer = document.getElementById('text-viewer-engine');
-            
-            const links = document.querySelectorAll('.menu-link');
-            links.forEach(link => link.classList.remove('active'));
-            event.currentTarget.classList.add('active');
 
             if (isRawText) {
                 iframe.style.display = 'none';
                 textViewer.style.display = 'block';
-                textViewer.value = "⏳ Requesting telemetry packet data from host vault...";
+                textViewer.value = "⏳ Querying secure container storage vector channels...";
                 try {
                     const response = await fetch(url);
                     if (response.ok) {
                         textViewer.value = await response.text();
                         textViewer.scrollTop = 0;
                     } else {
-                        textViewer.value = `🚨 System Error: Failed to load target path source [HTTP ${response.status}]`;
+                        textViewer.value = `🚨 Vault Error: Failed to load target path source [HTTP ${response.status}]`;
                     }
                 } catch (err) {
-                    textViewer.value = "🚨 Connection Fault: Unable to resolve file stream buffer channels.";
+                    textViewer.value = "🚨 Critical Exception: Data interface connection failure.";
                 }
             } else {
                 textViewer.style.display = 'none';
