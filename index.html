@@ -3,24 +3,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DEV-VAULT HUB</title>
+    <title>DEV-VAULT HUB // PREMIUM STUDIO CENTRAL</title>
     <style>
+        /* Modern High-Contrast Dynamic Color Reset */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background-color: #06090f; color: #eaf0fc; font-family: system-ui, sans-serif; display: flex; height: 100vh; overflow: hidden; }
-        aside { width: 320px; background: #0c1017; border-right: 1px solid rgba(255,255,255,0.1); padding: 25px; display: flex; flex-direction: column; gap: 25px; }
-        .branding h1 { color: #00ffcc; font-size: 1.2rem; text-transform: uppercase; }
-        .menu-section h2 { color: #8494b4; font-size: 0.75rem; text-transform: uppercase; margin-bottom: 10px; }
-        .menu-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-        .menu-link { display: flex; align-items: center; justify-content: space-between; padding: 12px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 6px; color: #c4cfe6; text-decoration: none; font-size: 0.85rem; cursor: pointer; }
-        .menu-link:hover { border-color: #00ffcc; color: #00ffcc; }
-        .tag-badge { font-size: 0.65rem; background: #1f2937; padding: 2px 6px; border-radius: 4px; color: #8494b4; font-family: monospace; }
-        main { flex: 1; background: #020406; display: flex; flex-direction: column; position: relative; }
-        .viewport-header { background: #0c1017; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 15px 30px; font-size: 0.8rem; color: #8494b4; display: flex; justify-content: space-between; }
-        .content-viewer { flex: 1; width: 100%; height: calc(100vh - 50px); padding: 30px; background: #020406; color: #a5b4fc; font-family: monospace; font-size: 0.9rem; border: none; outline: none; resize: none; display: none; overflow-y: scroll !important; -webkit-overflow-scrolling: touch !important; white-space: pre-wrap; word-break: break-all; }
-        iframe { flex: 1; width: 100%; height: calc(100vh - 50px); border: none; background: #020406; display: none; }
-        .welcome-screen { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #06090f; padding: 40px; text-align: center; }
-        .welcome-screen h3 { color: #00ffcc; margin-bottom: 10px; font-size: 1.3rem; }
-        .welcome-screen p { color: #8494b4; font-size: 0.85rem; max-width: 400px; }
+        :root {
+            --bg-base: #0b0f19;
+            --bg-viewport: #05070c;
+            --panel-glass: #0e1320;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --stroke-neon: rgba(0, 245, 212, 0.25);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #94a3b8;
+            --neon-cyan: #00f5d4;
+            --neon-blue: #3b82f6;
+            --font-stack: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--ink-secondary);
+            font-family: var(--font-stack);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Subtle Background Ambient Illumination */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(800px 500px at 15% -10%, rgba(0, 245, 212, 0.04), transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Premium Midnight-Glass Sidebar Navigation */
+        aside {
+            width: 320px;
+            background: var(--panel-glass);
+            border-right: 1px solid var(--stroke-glass);
+            padding: 30px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            z-index: 10;
+            box-shadow: 10px 0 40px rgba(0,0,0,0.3);
+        }
+
+        .branding h1 {
+            color: var(--ink-bright);
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            text-transform: uppercase;
+        }
+        
+        .status-badge {
+            font-size: 0.72rem;
+            color: var(--neon-cyan);
+            font-family: var(--font-mono);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 6px;
+            letter-spacing: 0.02em;
+        }
+        
+        .pulse-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--neon-cyan);
+            animation: pulse 2s infinite;
+        }
+
+        .menu-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .menu-section h2 {
+            color: var(--ink-muted);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-weight: 700;
+        }
+        
+        .menu-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        /* Responsive Cyber Link Options */
+        .menu-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 6px;
+            color: var(--ink-secondary);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .menu-link:hover {
+            border-color: rgba(0, 245, 212, 0.4);
+            color: var(--neon-cyan);
+            background: rgba(0, 245, 212, 0.02);
+        }
+        
+        .menu-link.active {
+            border-color: var(--neon-blue);
+            color: #fff;
+            background: rgba(59, 130, 246, 0.1);
+            font-weight: 600;
+        }
+        
+        .tag-badge {
+            font-size: 0.62rem;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--ink-muted);
+        }
+
+        /* Right Column: Clean High-Contrast Presentation Stage */
+        main {
+            flex: 1;
+            background: var(--bg-viewport);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .viewport-header {
+            background: var(--panel-glass);
+            border-bottom: 1px solid var(--stroke-glass);
+            padding: 16px 32px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--ink-muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        #view-title {
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+        }
+        
+        #view-path {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            background: rgba(0,0,0,0.2);
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--stroke-glass);
+        }
+
+        /* RE-DESIGNED CODE VIEWER: Bright High-Contrast White Text + Emerald Accents */
+        .content-viewer {
+            width: 100%;
+            height: calc(100vh - 53px);
+            padding: 40px;
+            background: var(--bg-viewport);
+            color: var(--ink-bright);
+            line-height: 1.7;
+            font-family: var(--font-mono);
+            font-size: 0.92rem;
+            border: none;
+            border-top: 1px solid var(--stroke-neon);
+            outline: none;
+            resize: none;
+            display: none;
+            box-sizing: border-box;
+            overflow-y: scroll !important;
+            overflow-x: hidden !important;
+            white-space: pre-wrap !important;
+            word-break: break-all !important;
+            -webkit-overflow-scrolling: touch !important;
+            letter-spacing: 0.01em;
+        }
+        
+        iframe {
+            width: 100%;
+            height: calc(100vh - 53px);
+            border: none;
+            background: var(--bg-viewport);
+            display: none;
+        }
+        
+        .welcome-screen {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-viewport);
+            text-align: center;
+            padding: 40px;
+            z-index: 5;
+            gap: 12px;
+        }
+        
+        .welcome-screen h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        
+        .welcome-screen p {
+            font-size: 0.85rem;
+            color: var(--ink-muted);
+            max-width: 400px;
+            line-height: 1.5;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 245, 212, 0.5); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(0, 245, 212, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 245, 212, 0); }
+        }
     </style>
 </head>
 <body>
@@ -28,7 +256,7 @@
     <aside>
         <div class="branding">
             <h1>Studio Engine</h1>
-            <div style="font-size:0.7rem; color:#00ffcc; margin-top:5px;">🟢 NODE ACTIVE</div>
+            <div class="status-badge"><span class="pulse-dot"></span>VAULT NODE // ONLINE</div>
         </div>
 
         <div class="menu-section">
@@ -81,51 +309,3 @@
     </aside>
 
     <main>
-        <div class="viewport-header">
-            <span id="view-title">WORKSPACE INITIALIZED</span>
-            <span id="view-path">studio://root</span>
-        </div>
-        
-        <textarea class="content-viewer" id="text-viewer-engine" readonly></textarea>
-        <iframe id="iframe-display-engine" src="about:blank"></iframe>
-        
-        <div class="welcome-screen" id="welcome">
-            <h3>System Console Ready</h3>
-            <p>Select a module from the directory panel to trigger live execution layout views.</p>
-        </div>
-    </main>
-
-    <script>
-        async function loadContent(url, title, isRawText) {
-            document.getElementById('welcome').style.display = 'none';
-            document.getElementById('view-title').innerText = title.toUpperCase();
-            document.getElementById('view-path').innerText = 'studio://' + url;
-            
-            const iframe = document.getElementById('iframe-display-engine');
-            const textViewer = document.getElementById('text-viewer-engine');
-
-            if (isRawText) {
-                iframe.style.display = 'none';
-                textViewer.style.display = 'block';
-                textViewer.value = "⏳ Querying secure container storage vector channels...";
-                try {
-                    const response = await fetch(url);
-                    if (response.ok) {
-                        textViewer.value = await response.text();
-                        textViewer.scrollTop = 0;
-                    } else {
-                        textViewer.value = `🚨 Vault Error: Failed to load target path source [HTTP ${response.status}]`;
-                    }
-                } catch (err) {
-                    textViewer.value = "🚨 Critical Exception: Data interface connection failure.";
-                }
-            } else {
-                textViewer.style.display = 'none';
-                iframe.style.display = 'block';
-                iframe.src = url;
-            }
-        }
-    </script>
-
-</body>
-</html>
