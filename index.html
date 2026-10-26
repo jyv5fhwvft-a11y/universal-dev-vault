@@ -22,13 +22,13 @@
         .menu-link.active { border-color: #5b8dff; color: #5b8dff; background: rgba(91, 141, 255, 0.05); font-weight: bold; }
         .tag-badge { font-size: 0.65rem; background: #1f2937; padding: 2px 6px; border-radius: 3px; color: #8494b4; }
         
-        /* Right Column: Dynamic Viewport */
-        main { flex: 1; background: #020408; display: flex; flex-direction: column; position: relative; }
+        /* Right Column: Dynamic Viewport Wrapper */
+        main { flex: 1; background: #020408; display: flex; flex-direction: column; position: relative; height: 100vh; overflow: hidden; }
         .viewport-header { background: #0c1017; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding: 12px 20px; font-size: 0.8rem; color: #8494b4; display: flex; justify-content: space-between; }
         
-        /* Text Viewer Box for Wikis and Code files */
-        .content-viewer { flex: 1; width: 100%; height: 100%; border: none; padding: 30px; overflow-y: auto; background: #020408; display: none; color: #a5b4fc; line-height: 1.6; font-size: 0.9rem; white-space: pre-wrap; }
-        iframe { flex: 1; width: 100%; height: 100%; border: none; background: #020408; display: none; }
+        /* FIXED: Added 'overflow-y: auto !important' and 'height' constraint to force active text scrolling */
+        .content-viewer { flex: 1; width: 100%; height: calc(100vh - 45px); padding: 30px; overflow-y: auto !important; background: #020408; display: none; color: #a5b4fc; line-height: 1.6; font-size: 0.9rem; white-space: pre-wrap; -webkit-overflow-scrolling: touch; }
+        iframe { flex: 1; width: 100%; height: calc(100vh - 45px); border: none; background: #020408; display: none; }
         
         .welcome-screen { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #06090f; text-align: center; padding: 40px; z-index: 5; }
         .welcome-screen h3 { font-size: 1.5rem; margin-bottom: 10px; color: #00ffcc; }
@@ -98,7 +98,7 @@
             <span id="view-path">vault://home</span>
         </div>
         
-        <!-- Viewer containers for different data layouts -->
+        <!-- Interactive internal screens -->
         <pre class="content-viewer" id="text-viewer-engine"></pre>
         <iframe id="iframe-display-engine" src="about:blank"></iframe>
         
@@ -117,13 +117,12 @@
             const iframe = document.getElementById('iframe-display-engine');
             const textViewer = document.getElementById('text-viewer-engine');
             
-            // Toggle highlight marker focus across menu choices
+            // Toggle sidebar active highlights
             const links = document.querySelectorAll('.menu-link');
             links.forEach(link => link.classList.remove('active'));
             event.currentTarget.classList.add('active');
 
             if (isRawText) {
-                // If it is a Wiki or Python file, fetch its text code and display natively
                 iframe.style.display = 'none';
                 textViewer.style.display = 'block';
                 textViewer.innerText = "⏳ Requesting telemetry packet data from host vault...";
@@ -131,6 +130,8 @@
                     const response = await fetch(url);
                     if (response.ok) {
                         textViewer.innerText = await response.text();
+                        // Force scrolling viewport to jump straight back to the absolute top on every reload click
+                        textViewer.scrollTop = 0;
                     } else {
                         textViewer.innerText = `🚨 System Error: Failed to load target path source [HTTP ${response.status}]`;
                     }
@@ -138,7 +139,6 @@
                     textViewer.innerText = "🚨 Connection Fault: Unable to resolve file stream buffer channels.";
                 }
             } else {
-                // If it is an HTML design file, launch it directly in the live iframe panel
                 textViewer.style.display = 'none';
                 iframe.style.display = 'block';
                 iframe.src = url;
